@@ -1,157 +1,195 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#08111b">
 <title>Spartan Signal</title>
 
 <style>
 :root {
-    --bg-main: #080E14;
-    --bg-card: #0F1822;
-    --border-color: #1D2D3E;
-    --text-primary: #FFFFFF;
-    --text-secondary: #8A9BB0;
-    --accent-cyan: #00F0FF;
-    --accent-green: #00E676;
-    --accent-red: #FF3D57;
-    --btn-gradient: linear-gradient(90deg, #00E5FF, #00E676);
+    --bg: #08111b;
+    --panel: #101b27;
+    --panel2: #0c1621;
+    --line: #203243;
+    --text: #eaf2fb;
+    --muted: #8295a9;
+    --cyan: #47d7f4;
+    --green: #31d69a;
+    --red: #ff6577;
+    --gold: #d6b56d;
 }
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
 }
 
 body {
-    background: var(--bg-main);
-    color: var(--text-primary);
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     min-height: 100vh;
-    padding: 12px 16px 24px;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
 }
 
-.header {
+.app {
+    max-width: 520px;
+    margin: auto;
+    padding: 14px 14px 30px;
+}
+
+.top {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
+    margin: 4px 0 16px;
 }
 
-.logo-wrap {
+.brand {
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+
+.brand span {
+    color: var(--cyan);
+}
+
+.topright {
     display: flex;
+    gap: 8px;
     align-items: center;
-    gap: 10px;
 }
 
-.logo-icon {
-    width: 28px;
-    height: 28px;
-}
-
-.logo-text {
-    font-size: 20px;
+.lang,
+.gear {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--muted);
+    border-radius: 10px;
+    padding: 8px 10px;
     font-weight: 700;
-    letter-spacing: .3px;
 }
 
-.lang-switch {
-    display: flex;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 3px;
+.lang.active {
+    color: var(--cyan);
+    border-color: var(--cyan);
 }
 
-.lang-btn {
-    padding: 5px 12px;
+.gear {
+    font-size: 18px;
+    padding: 6px 10px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
     border-radius: 16px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-}
-
-.lang-btn.active {
-    background: #133A46;
-    color: var(--accent-cyan);
-}
-
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 12px 16px;
+    padding: 14px;
     margin-bottom: 12px;
 }
 
-.mode-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.settings {
+    display: none;
 }
 
-.mode-left {
+.settings.open {
+    display: block;
+}
+
+.field {
+    margin-bottom: 12px;
+}
+
+.field label {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: #07111b;
+    color: var(--text);
+    border-radius: 10px;
+    padding: 12px;
+    font: inherit;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--cyan);
+}
+
+.btn {
+    border: 0;
+    border-radius: 12px;
+    background: var(--cyan);
+    color: #07111b;
+    font-weight: 900;
+    padding: 13px;
+    width: 100%;
+    font: inherit;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    opacity: .55;
+}
+
+.statusrow {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--text-secondary);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.mode-badge {
-    background: #113542;
-    color: var(--accent-cyan);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.asset-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.asset-icon {
-    width: 38px;
-    height: 38px;
-    background: #162434;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.asset-title {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.asset-sub {
+    color: var(--muted);
     font-size: 12px;
-    color: var(--text-secondary);
-    margin-top: 2px;
+    margin: 2px 0 12px;
 }
 
-.chart-container {
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px #31d69a66;
+}
+
+.dot.off {
+    background: var(--red);
+    box-shadow: none;
+}
+
+.assetrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.asset {
+    font-size: 13px;
+}
+
+.live {
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 1px;
+}
+
+.chartwrap {
+    height: 245px;
     position: relative;
-    width: 100%;
-    height: 270px;
-    background: var(--bg-main);
+    background: var(--panel2);
     border-radius: 12px;
-    margin: 6px 0 14px;
     overflow: hidden;
+    border: 1px solid #172635;
 }
 
 canvas {
@@ -160,451 +198,324 @@ canvas {
     display: block;
 }
 
-.status-dot {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    z-index: 2;
-    font-size: 11px;
-    color: var(--text-secondary);
+.tfs {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.tf {
+    flex: 1;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: transparent;
+    color: var(--muted);
+    padding: 8px 0;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.tf.active {
+    background: #142c3b;
+    color: var(--cyan);
+    border-color: #286078;
+}
+
+.mode {
     display: flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(15, 24, 34, .88);
-    padding: 5px 8px;
-    border-radius: 8px;
-}
-
-.dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    box-shadow: 0 0 8px var(--accent-green);
-}
-
-.dot.offline {
-    background: var(--accent-red);
-    box-shadow: 0 0 8px var(--accent-red);
-}
-
-.timeframes {
-    display: flex;
     justify-content: space-between;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 5px;
-    margin-bottom: 14px;
-}
-
-.tf-btn {
-    flex: 1;
-    text-align: center;
-    padding: 8px 0;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-.tf-btn.active {
-    background: #143B47;
-    color: var(--accent-cyan);
-}
-
-.action-btn {
-    width: 100%;
-    height: 54px;
-    border: none;
-    border-radius: 16px;
-    background: var(--btn-gradient);
-    color: #041014;
-    font-size: 16px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
     font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 230, 118, .25);
-    margin-bottom: 14px;
+    margin: 14px 0 8px;
 }
 
-.action-btn:active {
-    transform: scale(.98);
+.modeval {
+    color: var(--text);
+    font-size: 12px;
+    letter-spacing: 0;
 }
 
-.action-btn.analyzing {
-    background: #131D27;
-    color: #5C6E82;
-    box-shadow: none;
-    border: 1px solid var(--border-color);
-}
-
-.action-btn:disabled {
-    cursor: not-allowed;
-    opacity: .7;
-}
-
-.signal-box {
+.signal {
     display: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--line);
     border-radius: 16px;
     padding: 16px;
-    margin-bottom: 12px;
+    background: var(--panel);
+    margin-top: 12px;
 }
 
-.signal-box.visible {
+.signal.show {
     display: block;
 }
 
-.signal-header {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    letter-spacing: .8px;
-    margin-bottom: 12px;
-}
-
-.loader-wrap {
+.sighead {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 18px 0;
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.spinner {
-    width: 24px;
-    height: 24px;
-    border: 3px solid rgba(0, 230, 118, .2);
-    border-top-color: var(--accent-green);
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-}
-
-.result-grid {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    font-weight: 900;
+    margin-bottom: 14px;
+}
+
+.engine {
+    color: var(--cyan);
+    font-size: 10px;
+}
+
+.direction {
+    display: flex;
+    align-items: center;
     gap: 12px;
+    font-size: 26px;
+    font-weight: 950;
+    margin-bottom: 10px;
 }
 
-.result-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+.arrow {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    font-size: 25px;
 }
 
-.direction-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    font-weight: bold;
+.rise .arrow {
+    background: #123c31;
+    color: var(--green);
 }
 
-.direction-icon.rise {
-    background: rgba(0, 230, 118, .12);
-    border: 1px solid rgba(0, 230, 118, .4);
-    color: var(--accent-green);
+.fall .arrow {
+    background: #40202a;
+    color: var(--red);
 }
 
-.direction-icon.fall {
-    background: rgba(255, 61, 87, .12);
-    border: 1px solid rgba(255, 61, 87, .4);
-    color: var(--accent-red);
+.neutral .arrow {
+    background: #253341;
+    color: var(--muted);
 }
 
-.direction-title {
+.prob {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 8px 0;
+}
+
+.prob strong {
     font-size: 24px;
-    font-weight: 700;
+    color: var(--cyan);
 }
 
-.prob-text {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-}
-
-.prob-val {
-    font-weight: 700;
-}
-
-.result-right {
+.meta {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.pill {
+    background: #0a1420;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 10px;
+    flex: 1;
     font-size: 12px;
-    color: #C8D4E3;
+    color: var(--muted);
 }
 
-.meta-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.pill b {
+    display: block;
+    color: var(--text);
+    font-size: 14px;
+    margin-top: 3px;
 }
 
 .reason {
-    margin-top: 14px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--line);
     padding-top: 12px;
-    font-size: 12px;
-    color: var(--text-secondary);
+    color: #c4d2df;
+    font-size: 13px;
 }
 
 .disclaimer {
     font-size: 10px;
-    line-height: 1.5;
-    color: #617286;
-    margin-top: 12px;
+    color: var(--muted);
     text-align: center;
+    margin: 14px 4px 0;
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+.error {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 8px;
+    white-space: pre-wrap;
 }
 
-@media (max-width: 360px) {
-    body {
-        padding: 10px;
-    }
-
-    .result-grid {
-        align-items: flex-start;
-    }
-
-    .result-left {
-        gap: 8px;
-    }
-
-    .direction-icon {
-        width: 44px;
-        height: 44px;
-    }
-
-    .direction-title {
-        font-size: 20px;
-    }
-
-    .result-right {
-        font-size: 10px;
-    }
+.foot {
+    color: var(--muted);
+    font-size: 10px;
+    text-align: center;
+    margin-top: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<div class="app">
 
-    <div class="logo-wrap">
-        <svg class="logo-icon" viewBox="0 0 32 32" fill="none">
-            <path
-                d="M3 17H9L13 7L19 25L23 15H29"
-                stroke="url(#logo_grad)"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
+<header class="top">
+    <div class="brand">SPARTAN <span>SIGNAL</span></div>
 
-            <defs>
-                <linearGradient
-                    id="logo_grad"
-                    x1="3"
-                    y1="16"
-                    x2="29"
-                    y2="16"
-                    gradientUnits="userSpaceOnUse"
-                >
-                    <stop stop-color="#00E5FF"/>
-                    <stop offset="1" stop-color="#00E676"/>
-                </linearGradient>
-            </defs>
-        </svg>
+    <div class="topright">
+        <button class="lang active" id="ruBtn">RU</button>
+        <button class="lang" id="enBtn">EN</button>
+        <button class="gear" id="gearBtn" aria-label="Настройки">⚙</button>
+    </div>
+</header>
 
-        <span class="logo-text">Spartan Signal</span>
+<!-- SETTINGS -->
+
+<section class="panel settings" id="settingsPanel">
+
+    <div class="field">
+        <label>AI PROVIDER</label>
+
+        <select id="provider">
+            <option value="openai">OpenAI</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="gemini">Google Gemini</option>
+        </select>
     </div>
 
-    <div class="lang-switch">
-        <div class="lang-btn" data-lang="en">EN</div>
-        <div class="lang-btn active" data-lang="ru">RU</div>
-    </div>
+    <div class="field">
+        <label>AI API KEY</label>
 
-</div>
-
-
-<div class="card mode-bar">
-
-    <div class="mode-left">
-
-        <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#00E5FF"
-            stroke-width="2"
+        <input
+            id="aiKey"
+            type="password"
+            placeholder="Вставьте API-ключ"
+            autocomplete="off"
         >
-            <circle cx="12" cy="12" r="2"/>
-            <path d="M16.24 7.76a6 6 0 0 1 0 8.49"/>
-            <path d="M7.76 16.24a6 6 0 0 1 0-8.49"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-            <path d="M4.93 19.07a10 10 0 0 1 0-14.14"/>
-        </svg>
+    </div>
 
-        <span data-i18n="mode">РЕЖИМ</span>
+    <div class="field">
+        <label>DERIV TOKEN ИЛИ APP ID</label>
+
+        <input
+            id="derivKey"
+            type="password"
+            placeholder="Token (необязательно) или числовой App ID"
+            autocomplete="off"
+        >
+    </div>
+
+    <button class="btn" id="saveBtn">
+        Сохранить и подключиться
+    </button>
+
+    <div class="foot">
+        Ключи сохраняются в localStorage этого браузера.
+    </div>
+
+</section>
+
+<!-- CONNECTION STATUS -->
+
+<div class="statusrow">
+    <span class="dot off" id="statusDot"></span>
+    <span id="statusText">Подключение к Deriv…</span>
+</div>
+
+<!-- CHART -->
+
+<section class="panel">
+
+    <div class="assetrow">
+        <span class="asset">Volatility 100 (1s) Index</span>
+        <span class="live">● LIVE</span>
+    </div>
+
+    <div class="chartwrap">
+        <canvas id="chart"></canvas>
+    </div>
+
+    <div class="tfs" id="timeframes">
+
+        <button class="tf active" data-tf="1m">1m</button>
+        <button class="tf" data-tf="5m">5m</button>
+        <button class="tf" data-tf="15m">15m</button>
+        <button class="tf" data-tf="30m">30m</button>
+        <button class="tf" data-tf="1h">1h</button>
 
     </div>
 
-    <div class="mode-badge">Rise / Fall</div>
-
-</div>
-
-
-<div class="card asset-card">
-
-    <div class="asset-icon">
-
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-
-            <rect x="4" y="6" width="3" height="10" rx="1" fill="#00E5FF"/>
-            <rect x="10.5" y="4" width="3" height="14" rx="1" fill="#00E676"/>
-            <rect x="17" y="8" width="3" height="9" rx="1" fill="#00E5FF"/>
-
-        </svg>
-
+    <div class="mode">
+        <span id="modeLabel">РЕЖИМ</span>
+        <span class="modeval">Rise / Fall</span>
     </div>
 
-    <div>
+</section>
 
-        <div class="asset-title">Volatility 100 (1s) Index</div>
-        <div class="asset-sub">Rise / Fall</div>
+<!-- ANALYZE BUTTON -->
 
-    </div>
-
-</div>
-
-
-<div class="chart-container">
-
-    <div class="status-dot">
-
-        <span id="wsDot" class="dot offline"></span>
-        <span id="wsStatus">Подключение к Deriv...</span>
-
-    </div>
-
-    <canvas id="priceChart"></canvas>
-
-</div>
-
-
-<div class="timeframes">
-
-    <div class="tf-btn active" data-tf="1m">1m</div>
-    <div class="tf-btn" data-tf="5m">5m</div>
-    <div class="tf-btn" data-tf="15m">15m</div>
-    <div class="tf-btn" data-tf="30m">30m</div>
-    <div class="tf-btn" data-tf="1h">1h</div>
-
-</div>
-
-
-<button id="signalBtn" class="action-btn">
-    СИГНАЛ
+<button class="btn" id="analyzeBtn">
+    АНАЛИЗ ИИ
 </button>
 
+<div class="error" id="errorBox"></div>
 
-<div id="signalBox" class="signal-box">
+<!-- SIGNAL -->
 
-    <div class="signal-header" data-i18n="signalTitle">
-        СИГНАЛ
+<section class="signal" id="signalBox">
+
+    <div class="sighead">
+        <span id="signalTitle">СИГНАЛ</span>
+        <span class="engine" id="engineLabel">AI ENGINE</span>
     </div>
 
-
-    <div id="loaderState" class="loader-wrap">
-
-        <div class="spinner"></div>
-
-        <span data-i18n="analyzingText">
-            Анализ данных...
-        </span>
-
+    <div class="direction" id="direction">
+        <span class="arrow" id="arrow">↗</span>
+        <span id="directionText">Rise</span>
     </div>
 
+    <div class="prob" id="probability">
+        Оценка модели: <strong>—</strong>
+    </div>
 
-    <div id="resultState" class="result-grid" style="display:none">
+    <div class="meta">
 
-        <div class="result-left">
-
-            <div id="dirIcon" class="direction-icon rise">
-                ↗
-            </div>
-
-            <div>
-
-                <div id="dirText" class="direction-title">
-                    Rise
-                </div>
-
-                <div class="prob-text">
-
-                    <span data-i18n="probLabel">
-                        Вероятность:
-                    </span>
-
-                    <span id="probVal" class="prob-val">
-                        --
-                    </span>
-
-                </div>
-
-            </div>
-
+        <div class="pill" id="candlePill">
+            📊 Свечей
+            <b>—</b>
         </div>
 
-
-        <div class="result-right">
-
-            <div class="meta-row">
-                📊 <span id="candlesText">--</span>
-            </div>
-
-            <div class="meta-row">
-                🕒 <span id="timeWindow">--</span>
-            </div>
-
+        <div class="pill" id="timePill">
+            🕒 Таймфрейм
+            <b>—</b>
         </div>
 
     </div>
 
+    <div class="reason" id="reason"></div>
 
-    <div id="reasonText" class="reason" style="display:none">
-        Причина:
-    </div>
+</section>
+
+<p class="disclaimer" id="disclaimer">
+    AI-оценка не является гарантией направления цены или финансовым советом.
+</p>
 
 </div>
-
-
-<div class="disclaimer" data-i18n="disclaimer">
-    Анализ является технической оценкой рынка и не гарантирует результат.
-</div>
-
 
 <script>
 
-// ==========================================
-// TELEGRAM WEB APP
-// ==========================================
+(() => {
+
+'use strict';
 
 const tg = window.Telegram?.WebApp;
 
@@ -613,370 +524,406 @@ if (tg) {
     tg.expand();
 
     try {
-        tg.setHeaderColor('#080E14');
-        tg.setBackgroundColor('#080E14');
-    } catch (e) {}
+        tg.setHeaderColor('#08111b');
+        tg.setBackgroundColor('#08111b');
+    } catch (_) {}
 }
 
-
-// ==========================================
-// CONFIGURATION
-// ==========================================
-
-// Demo application ID.
-// For production, register your own Deriv App ID.
-
-const APP_ID = 1089;
+const $ = id => document.getElementById(id);
 
 const SYMBOL = '1HZ100V';
 
-const WS_URL =
-    `wss://ws.derivws.com/websockets/v3?app_id=${APP_ID}`;
+const tfMap = {
+    '1m': 60,
+    '5m': 300,
+    '15m': 900,
+    '30m': 1800,
+    '1h': 3600
+};
 
+let tf = '1m';
+let ws = null;
+let reconnectTimer = null;
+let candles = [];
+let liveQuote = null;
+let busy = false;
+let lang = 'ru';
+let socketGeneration = 0;
 
-// ==========================================
-// TRANSLATIONS
-// ==========================================
-
-const i18n = {
+const translations = {
 
     ru: {
+        connecting: 'Подключение к Deriv…',
+        online: 'Deriv подключен',
+        offline: 'Нет соединения',
         mode: 'РЕЖИМ',
-        btnSignal: 'СИГНАЛ',
-        btnAnalyzing: 'АНАЛИЗ',
-        signalTitle: 'СИГНАЛ',
-        analyzingText: 'Анализ данных...',
-        probLabel: 'Вероятность:',
-        connected: 'Deriv Live',
-        connecting: 'Подключение к Deriv...',
-        disconnected: 'Нет соединения',
+        analyze: 'АНАЛИЗ ИИ',
+        working: 'ИИ анализирует…',
+        signal: 'СИГНАЛ',
+        prob: 'Оценка модели:',
+        candles: 'свечей',
+        time: 'Таймфрейм',
+        disclaimer: 'AI-оценка не является гарантией направления цены или финансовым советом.',
         rise: 'Rise',
         fall: 'Fall',
-        candles: 'свечей',
-        reasonUp: 'Положительный импульс',
-        reasonDown: 'Отрицательный импульс',
-        reasonWeak: 'Слабый сигнал',
-        disclaimer: 'Анализ является технической оценкой рынка и не гарантирует результат.'
+        neutral: 'Нет сигнала',
+        save: 'Сохранить и подключиться'
     },
 
     en: {
+        connecting: 'Connecting to Deriv…',
+        online: 'Deriv connected',
+        offline: 'Connection lost',
         mode: 'MODE',
-        btnSignal: 'SIGNAL',
-        btnAnalyzing: 'ANALYZING',
-        signalTitle: 'SIGNAL',
-        analyzingText: 'Analyzing market data...',
-        probLabel: 'Probability:',
-        connected: 'Deriv Live',
-        connecting: 'Connecting to Deriv...',
-        disconnected: 'Disconnected',
+        analyze: 'AI ANALYSIS',
+        working: 'AI analyzing…',
+        signal: 'SIGNAL',
+        prob: 'Model estimate:',
+        candles: 'candles',
+        time: 'Timeframe',
+        disclaimer: 'AI estimate is not a guarantee of price direction or financial advice.',
         rise: 'Rise',
         fall: 'Fall',
-        candles: 'candles',
-        reasonUp: 'Positive momentum',
-        reasonDown: 'Negative momentum',
-        reasonWeak: 'Weak signal',
-        disclaimer: 'Technical market analysis. No outcome is guaranteed.'
+        neutral: 'No signal',
+        save: 'Save & connect'
     }
 
 };
 
+function tr(key) {
+    return translations[lang][key] || key;
+}
 
-// ==========================================
-// STATE
-// ==========================================
+function setStatus(ok, text) {
+    $('statusDot').classList.toggle('off', !ok);
+    $('statusText').textContent = text;
+}
 
-let currentLang = 'ru';
-
-let currentTf = '1m';
-
-let prices = [];
-
-let ws = null;
-
-let reconnectTimer = null;
-
-let isAnalyzing = false;
-
-let lastSignal = null;
-
-
-// Timeframe settings
-
-const timeframeSettings = {
-
-    '1m': {
-        seconds: 60,
-        candles: 20
-    },
-
-    '5m': {
-        seconds: 300,
-        candles: 20
-    },
-
-    '15m': {
-        seconds: 900,
-        candles: 20
-    },
-
-    '30m': {
-        seconds: 1800,
-        candles: 20
-    },
-
-    '1h': {
-        seconds: 3600,
-        candles: 20
+function getSaved(id) {
+    try {
+        return localStorage.getItem(id) || '';
+    } catch (_) {
+        return '';
     }
+}
+
+function save(id, val) {
+    try {
+        localStorage.setItem(id, val);
+    } catch (_) {}
+}
+
+/* LOAD SETTINGS */
+
+$('provider').value =
+    getSaved('spartan_ai_provider') || 'deepseek';
+
+$('aiKey').value =
+    getSaved('spartan_ai_key');
+
+$('derivKey').value =
+    getSaved('spartan_deriv_key');
+
+/* SETTINGS PANEL */
+
+$('gearBtn').onclick = () => {
+
+    $('settingsPanel').classList.toggle('open');
+
+    $('gearBtn').classList.toggle('active');
 
 };
 
+$('saveBtn').onclick = () => {
 
-// ==========================================
-// LANGUAGE SWITCH
-// ==========================================
+    save('spartan_ai_provider', $('provider').value);
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
+    save('spartan_ai_key', $('aiKey').value.trim());
 
-    btn.addEventListener('click', () => {
+    save('spartan_deriv_key', $('derivKey').value.trim());
 
-        if (tg?.HapticFeedback) {
-            tg.HapticFeedback.selectionChanged();
-        }
+    $('settingsPanel').classList.remove('open');
 
-        document.querySelectorAll('.lang-btn').forEach(b => {
-            b.classList.remove('active');
-        });
+    $('gearBtn').classList.remove('active');
 
-        btn.classList.add('active');
+    connectDeriv();
 
-        currentLang = btn.dataset.lang;
+};
 
-        updateLanguage();
+/* LANGUAGE */
 
-    });
+$('ruBtn').onclick = () => setLang('ru');
 
-});
+$('enBtn').onclick = () => setLang('en');
 
+function setLang(l) {
 
-function updateLanguage() {
+    lang = l;
 
-    document.querySelectorAll('[data-i18n]').forEach(el => {
+    $('ruBtn').classList.toggle('active', l === 'ru');
 
-        const key = el.dataset.i18n;
+    $('enBtn').classList.toggle('active', l === 'en');
 
-        if (i18n[currentLang][key]) {
-            el.textContent = i18n[currentLang][key];
-        }
+    $('modeLabel').textContent = tr('mode');
 
-    });
+    $('analyzeBtn').textContent = tr('analyze');
 
-    if (!isAnalyzing) {
-        signalBtn.textContent = i18n[currentLang].btnSignal;
-    }
+    $('signalTitle').textContent = tr('signal');
 
-    document.getElementById('wsStatus').textContent =
-        ws && ws.readyState === WebSocket.OPEN
-        ? i18n[currentLang].connected
-        : i18n[currentLang].connecting;
+    $('disclaimer').textContent = tr('disclaimer');
 
-    if (lastSignal) {
-        renderSignal(lastSignal);
-    }
+    $('statusText').textContent =
+        ws?.readyState === 1 ? tr('online') : tr('connecting');
 
 }
 
+/* TIMEFRAME BUTTONS */
 
-// ==========================================
-// TIMEFRAME SWITCH
-// ==========================================
+document.querySelectorAll('.tf').forEach(button => {
 
-document.querySelectorAll('.tf-btn').forEach(btn => {
+    button.onclick = () => {
 
-    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tf')
+            .forEach(b => b.classList.remove('active'));
 
-        if (tg?.HapticFeedback) {
-            tg.HapticFeedback.selectionChanged();
-        }
+        button.classList.add('active');
 
-        document.querySelectorAll('.tf-btn').forEach(b => {
-            b.classList.remove('active');
-        });
+        tf = button.dataset.tf;
 
-        btn.classList.add('active');
+        loadCandles();
 
-        currentTf = btn.dataset.tf;
-
-        // Reset previous signal
-        lastSignal = null;
-
-        document.getElementById('signalBox').classList.remove('visible');
-
-    });
+    };
 
 });
 
-
-// ==========================================
-// DERIV CONNECTION
-// ==========================================
+/* DERIV CONNECTION */
 
 function connectDeriv() {
 
     clearTimeout(reconnectTimer);
 
+    socketGeneration++;
+
+    const generation = socketGeneration;
+
     if (ws) {
+
         try {
             ws.onclose = null;
             ws.close();
-        } catch (e) {}
+        } catch (_) {}
+
     }
 
-    prices = [];
+    candles = [];
+    liveQuote = null;
 
-    updateStatus(false, i18n[currentLang].connecting);
+    drawChart();
+
+    const key = getSaved('spartan_deriv_key').trim();
+
+    const isToken =
+        key.length > 0 && !(/^\d+$/.test(key));
+
+    const appId =
+        key && /^\d+$/.test(key) ? key : '1089';
+
+    setStatus(false, tr('connecting'));
 
     try {
 
-        ws = new WebSocket(WS_URL);
+        ws = new WebSocket(
+            `wss://ws.derivws.com/websockets/v3?app_id=${encodeURIComponent(appId)}`
+        );
 
-    } catch (error) {
+    } catch (e) {
 
-        updateStatus(false, i18n[currentLang].disconnected);
-
-        reconnectTimer = setTimeout(connectDeriv, 3000);
+        scheduleReconnect(generation);
 
         return;
 
     }
 
-
     ws.onopen = () => {
 
-        updateStatus(true, i18n[currentLang].connected);
+        if (generation !== socketGeneration) return;
 
-        // Request historical ticks
+        if (isToken) {
 
-        ws.send(JSON.stringify({
+            ws.send(JSON.stringify({
+                authorize: key
+            }));
 
-            ticks_history: SYMBOL,
+        } else {
 
-            adjust_start_time: 1,
+            loadCandles();
 
-            count: 80,
-
-            end: 'latest',
-
-            style: 'ticks'
-
-        }));
+        }
 
     };
 
+    ws.onmessage = event => {
 
-    ws.onmessage = (event) => {
+        if (generation !== socketGeneration) return;
 
-        let data;
+        let d;
 
         try {
-            data = JSON.parse(event.data);
-        } catch (e) {
+            d = JSON.parse(event.data);
+        } catch (_) {
             return;
         }
 
+        if (d.error) {
 
-        if (data.error) {
+            setStatus(false, `Deriv: ${d.error.message || d.error.code}`);
 
-            console.error('Deriv API:', data.error.message);
-
-            updateStatus(false, data.error.message);
+            $('errorBox').textContent =
+                d.error.message || d.error.code;
 
             return;
 
         }
 
+        if (d.msg_type === 'authorize') {
 
-        // Historical prices
+            loadCandles();
 
-        if (data.history && data.history.prices) {
+            return;
 
-            prices = data.history.prices.map(Number);
+        }
+
+        /* HISTORICAL CANDLES */
+
+        if (d.msg_type === 'candles' && d.candles) {
+
+            candles = d.candles.map(c => ({
+                epoch: Number(c.epoch),
+                open: Number(c.open),
+                high: Number(c.high),
+                low: Number(c.low),
+                close: Number(c.close)
+            }));
+
+            setStatus(true, tr('online'));
 
             drawChart();
 
-            // Subscribe to live ticks
-
             ws.send(JSON.stringify({
-
                 ticks: SYMBOL,
-
                 subscribe: 1
-
             }));
 
         }
 
+        /* LIVE TICKS */
 
-        // Live tick
+        if (d.msg_type === 'tick' && d.tick) {
 
-        if (data.tick && data.tick.quote !== undefined) {
+            liveQuote = Number(d.tick.quote);
 
-            const price = Number(data.tick.quote);
+            const epoch = Number(d.tick.epoch);
 
-            if (Number.isFinite(price)) {
+            if (candles.length) {
 
-                prices.push(price);
+                const bucket =
+                    Math.floor(epoch / tfMap[tf]) * tfMap[tf];
 
-                if (prices.length > 120) {
-                    prices.shift();
+                const last = candles[candles.length - 1];
+
+                if (last.epoch === bucket) {
+
+                    last.close = liveQuote;
+
+                    last.high = Math.max(last.high, liveQuote);
+
+                    last.low = Math.min(last.low, liveQuote);
+
+                } else if (bucket > last.epoch) {
+
+                    candles.push({
+                        epoch: bucket,
+                        open: last.close,
+                        high: liveQuote,
+                        low: liveQuote,
+                        close: liveQuote
+                    });
+
+                    if (candles.length > 80) {
+                        candles.shift();
+                    }
+
                 }
 
-                drawChart();
-
             }
+
+            setStatus(true, tr('online'));
+
+            drawChart();
 
         }
 
     };
 
-
     ws.onerror = () => {
 
-        updateStatus(false, i18n[currentLang].disconnected);
+        setStatus(false, tr('offline'));
 
     };
-
 
     ws.onclose = () => {
 
-        updateStatus(false, i18n[currentLang].disconnected);
+        if (generation !== socketGeneration) return;
 
-        reconnectTimer = setTimeout(connectDeriv, 3000);
+        setStatus(false, tr('connecting'));
+
+        scheduleReconnect(generation);
 
     };
 
 }
 
+function scheduleReconnect(generation) {
 
-function updateStatus(online, text) {
+    if (generation !== socketGeneration) return;
 
-    const dot = document.getElementById('wsDot');
+    reconnectTimer = setTimeout(() => {
 
-    dot.classList.toggle('offline', !online);
+        if (generation === socketGeneration) {
+            connectDeriv();
+        }
 
-    document.getElementById('wsStatus').textContent = text;
+    }, 2500);
 
 }
 
+function loadCandles() {
 
-// ==========================================
-// CHART
-// ==========================================
+    if (!ws || ws.readyState !== 1) return;
 
-const canvas = document.getElementById('priceChart');
+    ws.send(JSON.stringify({
+
+        ticks_history: SYMBOL,
+
+        adjust_start_time: 1,
+
+        count: 80,
+
+        end: 'latest',
+
+        style: 'candles',
+
+        granularity: tfMap[tf]
+
+    }));
+
+}
+
+/* CHART */
+
+const canvas = $('chart');
 
 const ctx = canvas.getContext('2d');
-
 
 function drawChart() {
 
@@ -992,561 +939,562 @@ function drawChart() {
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-
     const w = rect.width;
 
     const h = rect.height;
 
-    const rightPad = 72;
-
-    const plotW = w - rightPad;
-
     ctx.clearRect(0, 0, w, h);
 
+    if (candles.length < 2) {
 
-    if (prices.length < 2) {
+        ctx.fillStyle = '#8295a9';
 
-        ctx.fillStyle = '#8A9BB0';
+        ctx.font = '12px sans-serif';
 
-        ctx.font = '13px sans-serif';
-
-        ctx.fillText('Waiting for market data...', 15, h / 2);
+        ctx.fillText('Ожидание котировок…', 12, 24);
 
         return;
 
     }
 
+    const visible = candles.slice(-45);
 
-    const min = Math.min(...prices);
+    const min = Math.min(...visible.map(c => c.low));
 
-    const max = Math.max(...prices);
+    const max = Math.max(...visible.map(c => c.high));
 
-    const range = max - min || 0.0001;
+    const range = max - min || 1;
 
-    const padY = h * 0.14;
-
-
-    const getY = value => {
-
-        return h - padY -
-            ((value - min) / range) *
-            (h - padY * 2);
-
+    const pad = {
+        top: 12,
+        bottom: 12,
+        left: 8,
+        right: 62
     };
 
+    const plotW = w - pad.left - pad.right;
 
-    const getX = index => {
+    const plotH = h - pad.top - pad.bottom;
 
-        return (index / (prices.length - 1)) *
-            (plotW - 15);
+    const y = v =>
+        pad.top + (max - v) / range * plotH;
 
-    };
+    const step = plotW / visible.length;
 
+    const cw = Math.max(2, step * .62);
 
-    // Grid
+    /* GRID */
 
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.strokeStyle = 'rgba(255,255,255,.055)';
 
-    ctx.fillStyle = '#8A9BB0';
+    ctx.fillStyle = '#8092a5';
 
-    ctx.font = '11px sans-serif';
+    ctx.font = '10px sans-serif';
 
-    ctx.lineWidth = 1;
+    for (let i = 0; i < 5; i++) {
 
-
-    for (let i = 0; i <= 4; i++) {
-
-        const value = min + (range / 4) * i;
-
-        const y = getY(value);
+        let yy = pad.top + i * plotH / 4;
 
         ctx.beginPath();
 
-        ctx.moveTo(0, y);
+        ctx.moveTo(pad.left, yy);
 
-        ctx.lineTo(plotW, y);
+        ctx.lineTo(pad.left + plotW, yy);
 
         ctx.stroke();
 
         ctx.fillText(
-            value.toFixed(2),
-            plotW + 10,
-            y + 4
+            (max - i * range / 4).toFixed(2),
+            pad.left + plotW + 6,
+            yy + 3
         );
 
     }
 
+    /* CANDLES */
 
-    // Area gradient
+    visible.forEach((c, i) => {
 
-    const gradient = ctx.createLinearGradient(0, padY, 0, h);
+        let x = pad.left + i * step + step / 2;
 
-    gradient.addColorStop(0, 'rgba(255,255,255,0.16)');
+        let up = c.close >= c.open;
 
-    gradient.addColorStop(1, 'rgba(8,14,20,0)');
+        let color = up ? '#31d69a' : '#ff6577';
 
+        ctx.strokeStyle = color;
 
-    ctx.beginPath();
+        ctx.fillStyle = color;
 
-    ctx.moveTo(getX(0), h);
+        ctx.beginPath();
 
-    prices.forEach((price, index) => {
+        ctx.moveTo(x, y(c.high));
 
-        ctx.lineTo(getX(index), getY(price));
+        ctx.lineTo(x, y(c.low));
+
+        ctx.stroke();
+
+        let top = Math.min(y(c.open), y(c.close));
+
+        let body = Math.max(
+            1,
+            Math.abs(y(c.open) - y(c.close))
+        );
+
+        ctx.fillRect(x - cw / 2, top, cw, body);
 
     });
 
-    ctx.lineTo(getX(prices.length - 1), h);
+    /* CURRENT PRICE */
 
-    ctx.closePath();
+    if (liveQuote !== null) {
 
-    ctx.fillStyle = gradient;
+        ctx.fillStyle = '#47d7f4';
 
-    ctx.fill();
+        ctx.font = 'bold 11px sans-serif';
 
+        ctx.fillText(
+            liveQuote.toFixed(2),
+            pad.left + plotW + 6,
+            y(liveQuote)
+        );
 
-    // Price line
+    }
 
-    ctx.beginPath();
+}
 
-    prices.forEach((price, index) => {
+window.addEventListener('resize', drawChart);
 
-        if (index === 0) {
+/* RSI */
 
-            ctx.moveTo(getX(index), getY(price));
+function rsi(values, period = 14) {
 
+    if (values.length <= period) return null;
+
+    let gains = 0;
+
+    let losses = 0;
+
+    for (let i = values.length - period; i < values.length; i++) {
+
+        let d = values[i] - values[i - 1];
+
+        if (d > 0) {
+            gains += d;
         } else {
-
-            ctx.lineTo(getX(index), getY(price));
-
+            losses -= d;
         }
 
-    });
+    }
 
-    ctx.strokeStyle = '#FFFFFF';
+    if (losses === 0) return 100;
 
-    ctx.lineWidth = 2;
-
-    ctx.stroke();
-
-
-    // Current price
-
-    const lastPrice = prices[prices.length - 1];
-
-    const lastX = getX(prices.length - 1);
-
-    const lastY = getY(lastPrice);
-
-
-    ctx.beginPath();
-
-    ctx.moveTo(lastX, lastY);
-
-    ctx.lineTo(plotW + 4, lastY);
-
-    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
-
-    ctx.lineWidth = 1.5;
-
-    ctx.stroke();
-
-
-    // Current point
-
-    ctx.beginPath();
-
-    ctx.arc(lastX, lastY, 4.5, 0, Math.PI * 2);
-
-    ctx.fillStyle = '#FFFFFF';
-
-    ctx.fill();
-
-
-    // Price label
-
-    ctx.fillStyle = '#FFFFFF';
-
-    ctx.beginPath();
-
-    ctx.roundRect(
-        plotW + 4,
-        lastY - 11,
-        64,
-        22,
-        6
-    );
-
-    ctx.fill();
-
-
-    ctx.fillStyle = '#080E14';
-
-    ctx.font = 'bold 11px sans-serif';
-
-    ctx.fillText(
-        lastPrice.toFixed(2),
-        plotW + 10,
-        lastY + 4
-    );
+    return 100 - (100 / (1 + gains / losses));
 
 }
 
+/* STATISTICS */
 
-// ==========================================
-// MOSCOW TIME
-// ==========================================
+function candleStats(cs) {
 
-function getMskTimeWindow(candlesCount) {
+    const closes = cs.map(c => c.close);
 
-    const now = new Date();
+    const last = cs.at(-1);
 
-    const start = new Date(
-        now.getTime() + 3 * 60 * 60 * 1000
-    );
+    const prev = cs.at(-2);
 
-    const settings = timeframeSettings[currentTf];
-
-    const end = new Date(
-        start.getTime() +
-        settings.seconds *
-        candlesCount *
-        1000
-    );
-
-
-    const format = date => {
-
-        return date.toLocaleTimeString('ru-RU', {
-
-            timeZone: 'UTC',
-
-            hour: '2-digit',
-
-            minute: '2-digit',
-
-            hour12: false
-
-        });
-
-    };
-
-
-    return `${format(start)} – ${format(end)} (МСК)`;
-
-}
-
-
-// ==========================================
-// TECHNICAL ANALYSIS
-// ==========================================
-
-function analyzeMarket() {
-
-    if (prices.length < 20) {
-
-        return null;
-
-    }
-
-
-    const recent = prices.slice(-20);
-
-    const first = recent[0];
-
-    const last = recent[recent.length - 1];
-
-
-    if (!Number.isFinite(first) || !Number.isFinite(last)) {
-
-        return null;
-
-    }
-
-
-    // Price momentum
-
-    const momentum = last - first;
-
-
-    // Average movement
-
-    let totalMovement = 0;
-
-    for (let i = 1; i < recent.length; i++) {
-
-        totalMovement += Math.abs(
-            recent[i] - recent[i - 1]
-        );
-
-    }
-
-
-    const averageMovement =
-        totalMovement / (recent.length - 1);
-
-
-    // Normalize momentum
-
-    const strength = averageMovement > 0
-        ? Math.min(
-            Math.abs(momentum) / (averageMovement * 10),
-            1
-        )
-        : 0;
-
-
-    // Direction
-
-    const isRise = momentum >= 0;
-
-
-    // Heuristic score.
-    // This is NOT a statistically validated probability.
-
-    const probability = Math.round(
-        50 + strength * 15
-    );
-
-
-    let reason;
-
-    if (strength < 0.25) {
-
-        reason = i18n[currentLang].reasonWeak;
-
-    } else if (isRise) {
-
-        reason = i18n[currentLang].reasonUp;
-
-    } else {
-
-        reason = i18n[currentLang].reasonDown;
-
-    }
-
+    const r = rsi(closes);
 
     return {
 
-        isRise,
+        closes,
 
-        probability,
+        last,
 
-        strength,
+        prev,
 
-        reason,
+        rsi: r,
 
-        candles: timeframeSettings[currentTf].candles,
-
-        timeWindow: getMskTimeWindow(
-            timeframeSettings[currentTf].candles
-        )
+        trend:
+            closes.at(-1) > closes.at(-5)
+                ? 'up'
+                : closes.at(-1) < closes.at(-5)
+                    ? 'down'
+                    : 'sideways'
 
     };
 
 }
 
+/* AI PROMPT */
 
-// ==========================================
-// DISPLAY SIGNAL
-// ==========================================
+function makePrompt() {
 
-function renderSignal(signal) {
+    const data = candles.slice(-20);
 
-    const dirIcon = document.getElementById('dirIcon');
+    if (data.length < 8) {
 
-    const dirText = document.getElementById('dirText');
-
-    const probVal = document.getElementById('probVal');
-
-
-    if (signal.isRise) {
-
-        dirIcon.className = 'direction-icon rise';
-
-        dirIcon.textContent = '↗';
-
-        dirText.textContent = i18n[currentLang].rise;
-
-        probVal.style.color = '#00E676';
-
-    } else {
-
-        dirIcon.className = 'direction-icon fall';
-
-        dirIcon.textContent = '↘';
-
-        dirText.textContent = i18n[currentLang].fall;
-
-        probVal.style.color = '#FF3D57';
+        throw new Error(
+            'Недостаточно свечей. Дождитесь загрузки графика.'
+        );
 
     }
 
+    const s = candleStats(data);
 
-    probVal.textContent = `${signal.probability}%`;
+    return `Ты анализируешь краткосрочный график синтетического индекса Deriv Volatility 100 (1s).
 
+Таймфрейм: ${tf}.
 
-    document.getElementById('candlesText').textContent =
-        `${signal.candles} ${i18n[currentLang].candles}`;
+Данные OHLC последних ${data.length} свечей:
+${JSON.stringify(data)}
 
+RSI(14):
+${s.rsi === null ? 'недостаточно данных' : s.rsi.toFixed(2)}
 
-    document.getElementById('timeWindow').textContent =
-        signal.timeWindow;
+Общая динамика:
+${s.trend}
 
+Текущая цена:
+${liveQuote ?? s.last.close}
 
-    document.getElementById('reasonText').textContent =
-        signal.reason;
+Сделай осторожную техническую оценку следующего движения.
 
+Не выдумывай данные.
+Если сигналы слабые или противоречивые, выбери NEUTRAL.
+Вероятность — субъективная оценка модели, не статистически подтвержденная.
 
-    document.getElementById('reasonText').style.display =
-        'block';
+Верни ТОЛЬКО JSON:
 
-
-    document.getElementById('loaderState').style.display =
-        'none';
-
-
-    document.getElementById('resultState').style.display =
-        'flex';
+{
+  "direction": "RISE|FALL|NEUTRAL",
+  "confidence": 0-100,
+  "candles": ${Math.min(20, data.length)},
+  "reason": "короткое объяснение на русском"
+}`;
 
 }
 
+/* AI REQUEST */
 
-// ==========================================
-// SIGNAL BUTTON
-// ==========================================
+async function callAI(prompt) {
 
-const signalBtn = document.getElementById('signalBtn');
+    const provider =
+        getSaved('spartan_ai_provider') || $('provider').value;
 
+    const key =
+        getSaved('spartan_ai_key') || $('aiKey').value.trim();
 
-signalBtn.addEventListener('click', () => {
+    if (!key) {
 
-    if (isAnalyzing) return;
-
-
-    if (prices.length < 20) {
-
-        alert(
-            currentLang === 'ru'
-            ? 'Недостаточно данных. Подождите подключения к Deriv.'
-            : 'Not enough data. Wait for Deriv connection.'
+        throw new Error(
+            'Сначала добавьте API-ключ AI в настройках (⚙).'
         );
 
-        return;
-
     }
 
+    let response;
 
-    if (tg?.HapticFeedback) {
+    let text;
 
-        tg.HapticFeedback.impactOccurred('medium');
+    /* DEEPSEEK */
 
-    }
+    if (provider === 'deepseek') {
 
+        response = await fetch(
+            'https://api.deepseek.com/chat/completions',
+            {
+                method: 'POST',
 
-    isAnalyzing = true;
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
 
+                body: JSON.stringify({
 
-    signalBtn.disabled = true;
+                    model: 'deepseek-chat',
 
-    signalBtn.classList.add('analyzing');
+                    messages: [
 
-    signalBtn.textContent =
-        i18n[currentLang].btnAnalyzing;
+                        {
+                            role: 'system',
+                            content: 'Ты технический аналитик. Отвечай только валидным JSON.'
+                        },
 
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
 
-    document.getElementById('signalBox')
-        .classList.add('visible');
+                    ],
 
+                    temperature: 0.2
 
-    document.getElementById('loaderState')
-        .style.display = 'flex';
+                })
 
+            }
+        );
 
-    document.getElementById('resultState')
-        .style.display = 'none';
+        const j = await response.json();
 
+        if (!response.ok) {
 
-    document.getElementById('reasonText')
-        .style.display = 'none';
-
-
-    // Short visual loading animation
-
-    setTimeout(() => {
-
-
-        const signal = analyzeMarket();
-
-
-        if (!signal) {
-
-            isAnalyzing = false;
-
-            signalBtn.disabled = false;
-
-            signalBtn.classList.remove('analyzing');
-
-            signalBtn.textContent =
-                i18n[currentLang].btnSignal;
-
-            document.getElementById('signalBox')
-                .classList.remove('visible');
-
-            return;
+            throw new Error(
+                j.error?.message || 'DeepSeek API error'
+            );
 
         }
 
+        text = j.choices?.[0]?.message?.content;
 
-        lastSignal = signal;
+    }
 
+    /* OPENAI */
 
-        renderSignal(signal);
+    else if (provider === 'openai') {
 
+        response = await fetch(
+            'https://api.openai.com/v1/chat/completions',
+            {
+                method: 'POST',
 
-        if (tg?.HapticFeedback) {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
 
-            tg.HapticFeedback.notificationOccurred('success');
+                body: JSON.stringify({
+
+                    model: 'gpt-4o-mini',
+
+                    messages: [
+
+                        {
+                            role: 'system',
+                            content: 'You are a cautious technical analyst. Return only valid JSON.'
+                        },
+
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
+
+                    ],
+
+                    temperature: 0.2
+
+                })
+
+            }
+        );
+
+        const j = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                j.error?.message || 'OpenAI API error'
+            );
 
         }
 
+        text = j.choices?.[0]?.message?.content;
 
-        isAnalyzing = false;
+    }
 
-        signalBtn.disabled = false;
+    /* GEMINI */
 
-        signalBtn.classList.remove('analyzing');
+    else {
 
-        signalBtn.textContent =
-            i18n[currentLang].btnSignal;
+        response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(key)}`,
+            {
+                method: 'POST',
 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
 
-    }, 1200);
+                body: JSON.stringify({
 
-});
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: prompt
+                                }
+                            ]
+                        }
+                    ],
 
+                    generationConfig: {
+                        temperature: 0.2,
+                        responseMimeType: 'application/json'
+                    }
 
-// ==========================================
-// RESIZE
-// ==========================================
+                })
 
-window.addEventListener('resize', () => {
+            }
+        );
 
-    drawChart();
+        const j = await response.json();
 
-});
+        if (!response.ok) {
 
+            throw new Error(
+                j.error?.message || 'Gemini API error'
+            );
 
-// ==========================================
-// START
-// ==========================================
+        }
+
+        text = j.candidates?.[0]?.content?.parts
+            ?.map(p => p.text || '')
+            .join('');
+
+    }
+
+    if (!text) {
+
+        throw new Error('AI вернул пустой ответ');
+
+    }
+
+    /* PARSE AI JSON */
+
+    const cleaned = text
+        .replace(/```(?:json)?/gi, '')
+        .replace(/```/g, '')
+        .trim();
+
+    const parsed = JSON.parse(cleaned);
+
+    if (
+        !['RISE', 'FALL', 'NEUTRAL']
+        .includes(parsed.direction)
+    ) {
+
+        throw new Error(
+            'Неизвестное направление в ответе AI'
+        );
+
+    }
+
+    parsed.confidence = Math.max(
+        0,
+        Math.min(100, Number(parsed.confidence) || 0)
+    );
+
+    parsed.candles = Math.max(
+        1,
+        Math.min(20, Number(parsed.candles) || dataCount())
+    );
+
+    parsed.reason = String(
+        parsed.reason || 'Нет объяснения'
+    );
+
+    return parsed;
+
+}
+
+function dataCount() {
+
+    return Math.min(20, candles.length);
+
+}
+
+/* RENDER SIGNAL */
+
+function renderSignal(s) {
+
+    $('signalBox').classList.add('show');
+
+    const d = s.direction;
+
+    const cls =
+        d === 'RISE'
+            ? 'rise'
+            : d === 'FALL'
+                ? 'fall'
+                : 'neutral';
+
+    $('direction').className = 'direction ' + cls;
+
+    $('arrow').textContent =
+        d === 'RISE'
+            ? '↗'
+            : d === 'FALL'
+                ? '↘'
+                : '—';
+
+    $('directionText').textContent =
+        d === 'RISE'
+            ? tr('rise')
+            : d === 'FALL'
+                ? tr('fall')
+                : tr('neutral');
+
+    $('probability').innerHTML =
+        `${tr('prob')} <strong>${s.confidence}%</strong>`;
+
+    $('candlePill').innerHTML =
+        `📊 ${tr('candles')}<b>${s.candles}</b>`;
+
+    $('timePill').innerHTML =
+        `🕒 ${tr('time')}<b>${tf}</b>`;
+
+    $('reason').textContent = s.reason;
+
+    $('engineLabel').textContent =
+        ($('provider').value || 'AI').toUpperCase()
+        + ' ENGINE';
+
+}
+
+/* ANALYZE BUTTON */
+
+$('analyzeBtn').onclick = async () => {
+
+    if (busy) return;
+
+    busy = true;
+
+    $('analyzeBtn').disabled = true;
+
+    $('analyzeBtn').textContent = tr('working');
+
+    $('errorBox').textContent = '';
+
+    try {
+
+        const result = await callAI(makePrompt());
+
+        renderSignal(result);
+
+    } catch (e) {
+
+        $('errorBox').textContent =
+            e.message || String(e);
+
+    } finally {
+
+        busy = false;
+
+        $('analyzeBtn').disabled = false;
+
+        $('analyzeBtn').textContent = tr('analyze');
+
+    }
+
+};
+
+/* START */
 
 connectDeriv();
+
+})();
 
 </script>
 
 </body>
 </html>
-
-  
-
