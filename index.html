@@ -1,195 +1,238 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#08111b">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Spartan Signal</title>
 
 <style>
 :root {
-    --bg: #08111b;
-    --panel: #101b27;
-    --panel2: #0c1621;
-    --line: #203243;
-    --text: #eaf2fb;
-    --muted: #8295a9;
-    --cyan: #47d7f4;
-    --green: #31d69a;
-    --red: #ff6577;
-    --gold: #d6b56d;
+    --bg-main: #080E14;
+    --bg-card: #0F1822;
+    --bg-input: #091017;
+    --border-color: #1D2D3E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #8A9BB0;
+    --accent-cyan: #00F0FF;
+    --accent-green: #00E676;
+    --accent-red: #FF3D57;
+    --btn-gradient: linear-gradient(90deg,#00E5FF,#00E676);
 }
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
     min-height: 100vh;
+    padding: 12px 16px 24px;
+    overflow-x: hidden;
+    user-select: none;
 }
 
-.app {
-    max-width: 520px;
-    margin: auto;
-    padding: 14px 14px 30px;
-}
-
-.top {
+.header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin: 4px 0 16px;
-}
-
-.brand {
-    font-weight: 900;
-    letter-spacing: 2px;
-    font-size: 18px;
-}
-
-.brand span {
-    color: var(--cyan);
-}
-
-.topright {
-    display: flex;
-    gap: 8px;
     align-items: center;
+    margin-bottom: 14px;
 }
 
-.lang,
-.gear {
-    border: 1px solid var(--line);
-    background: var(--panel);
-    color: var(--muted);
-    border-radius: 10px;
-    padding: 8px 10px;
+.logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.logo-text {
+    font-size: 20px;
     font-weight: 700;
+    letter-spacing: .3px;
 }
 
-.lang.active {
-    color: var(--cyan);
-    border-color: var(--cyan);
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.gear {
-    font-size: 18px;
-    padding: 6px 10px;
-}
-
-.panel {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 14px;
-    margin-bottom: 12px;
-}
-
-.settings {
-    display: none;
-}
-
-.settings.open {
-    display: block;
-}
-
-.field {
-    margin-bottom: 12px;
-}
-
-.field label {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 1px;
-    font-weight: 800;
-    margin-bottom: 6px;
-}
-
-input,
-select {
-    width: 100%;
-    border: 1px solid var(--line);
-    background: #07111b;
-    color: var(--text);
-    border-radius: 10px;
-    padding: 12px;
-    font: inherit;
-    outline: none;
-}
-
-input:focus,
-select:focus {
-    border-color: var(--cyan);
-}
-
-.btn {
-    border: 0;
-    border-radius: 12px;
-    background: var(--cyan);
-    color: #07111b;
-    font-weight: 900;
-    padding: 13px;
-    width: 100%;
-    font: inherit;
+.gear-btn {
+    width: 34px;
+    height: 34px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
     cursor: pointer;
 }
 
-.btn:disabled {
-    opacity: .55;
+.gear-btn.active {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: #113542;
 }
 
-.statusrow {
+.lang-switch {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 3px;
+}
+
+.lang-btn {
+    padding: 5px 11px;
+    border-radius: 16px;
     font-size: 12px;
-    margin: 2px 0 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
 }
 
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 10px #31d69a66;
+.lang-btn.active {
+    background: #133A46;
+    color: var(--accent-cyan);
 }
 
-.dot.off {
-    background: var(--red);
-    box-shadow: none;
+.settings-panel {
+    display: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
 }
 
-.assetrow {
+.settings-panel.open {
+    display: block;
+}
+
+.input-group {
+    margin-bottom: 12px;
+}
+
+.input-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.api-input,
+.api-select {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 11px 12px;
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    user-select: text;
+}
+
+.api-input:focus,
+.api-select:focus {
+    border-color: var(--accent-cyan);
+}
+
+.save-settings-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 11px;
+    border: none;
+    border-radius: 12px;
+    background: #133A46;
+    color: var(--accent-cyan);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+
+.mode-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 800;
-    margin-bottom: 8px;
 }
 
-.asset {
+.mode-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
     font-size: 13px;
+    font-weight: 600;
 }
 
-.live {
-    font-size: 10px;
-    color: var(--green);
-    letter-spacing: 1px;
+.mode-badge {
+    background: #113542;
+    color: var(--accent-cyan);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.chartwrap {
-    height: 245px;
+.asset-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.asset-icon {
+    width: 38px;
+    height: 38px;
+    background: #162434;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.asset-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.asset-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.chart-container {
     position: relative;
-    background: var(--panel2);
+    width: 100%;
+    height: 260px;
+    background: var(--bg-main);
     border-radius: 12px;
+    margin: 6px 0 14px;
     overflow: hidden;
-    border: 1px solid #172635;
 }
 
 canvas {
@@ -198,321 +241,500 @@ canvas {
     display: block;
 }
 
-.tfs {
+.status-dot {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2;
+    font-size: 11px;
+    color: var(--text-secondary);
     display: flex;
+    align-items: center;
     gap: 6px;
-    margin-top: 12px;
+    background: rgba(15,24,34,.88);
+    padding: 5px 8px;
+    border-radius: 8px;
 }
 
-.tf {
-    flex: 1;
-    border: 1px solid var(--line);
-    border-radius: 9px;
-    background: transparent;
-    color: var(--muted);
-    padding: 8px 0;
-    font-weight: 800;
-    font-size: 12px;
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 8px var(--accent-green);
 }
 
-.tf.active {
-    background: #142c3b;
-    color: var(--cyan);
-    border-color: #286078;
+.dot.offline {
+    background: var(--accent-red);
+    box-shadow: 0 0 8px var(--accent-red);
 }
 
-.mode {
+.timeframes {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 1px;
-    font-weight: 800;
-    margin: 14px 0 8px;
-}
-
-.modeval {
-    color: var(--text);
-    font-size: 12px;
-    letter-spacing: 0;
-}
-
-.signal {
-    display: none;
-    border: 1px solid var(--line);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 16px;
-    background: var(--panel);
-    margin-top: 12px;
-}
-
-.signal.show {
-    display: block;
-}
-
-.sighead {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 1.2px;
-    font-weight: 900;
+    padding: 5px;
     margin-bottom: 14px;
 }
 
-.engine {
-    color: var(--cyan);
-    font-size: 10px;
+.tf-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-radius: 12px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
 }
 
-.direction {
+.tf-btn.active {
+    background: #143B47;
+    color: var(--accent-cyan);
+}
+
+.action-btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 16px;
+    background: var(--btn-gradient);
+    color: #041014;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,230,118,.25);
+    margin-bottom: 14px;
+}
+
+.action-btn:active {
+    transform: scale(.98);
+}
+
+.action-btn.analyzing {
+    background: #131D27;
+    color: #5C6E82;
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+}
+
+.signal-box {
+    display: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.signal-box.visible {
+    display: block;
+}
+
+.signal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: .8px;
+    margin-bottom: 12px;
+}
+
+.ai-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: rgba(0,240,255,.12);
+    color: var(--accent-cyan);
+}
+
+.loader-wrap {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    font-size: 26px;
-    font-weight: 950;
-    margin-bottom: 10px;
-}
-
-.arrow {
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    font-size: 25px;
-}
-
-.rise .arrow {
-    background: #123c31;
-    color: var(--green);
-}
-
-.fall .arrow {
-    background: #40202a;
-    color: var(--red);
-}
-
-.neutral .arrow {
-    background: #253341;
-    color: var(--muted);
-}
-
-.prob {
-    font-size: 15px;
-    font-weight: 800;
-    margin: 8px 0;
-}
-
-.prob strong {
-    font-size: 24px;
-    color: var(--cyan);
-}
-
-.meta {
-    display: flex;
-    gap: 8px;
-    margin: 12px 0;
-}
-
-.pill {
-    background: #0a1420;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 9px 10px;
-    flex: 1;
-    font-size: 12px;
-    color: var(--muted);
-}
-
-.pill b {
-    display: block;
-    color: var(--text);
+    padding: 18px 0;
+    color: var(--text-secondary);
     font-size: 14px;
-    margin-top: 3px;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(0,230,118,.2);
+    border-top-color: var(--accent-green);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+.result-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.result-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.direction-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.direction-icon.rise {
+    background: rgba(0,230,118,.12);
+    border: 1px solid rgba(0,230,118,.4);
+    color: var(--accent-green);
+}
+
+.direction-icon.fall {
+    background: rgba(255,61,87,.12);
+    border: 1px solid rgba(255,61,87,.4);
+    color: var(--accent-red);
+}
+
+.direction-icon.neutral {
+    background: rgba(138,155,176,.12);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.direction-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.prob-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.prob-val {
+    font-weight: 700;
+}
+
+.result-right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: #C8D4E3;
+}
+
+.meta-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .reason {
-    border-top: 1px solid var(--line);
+    margin-top: 14px;
+    border-top: 1px solid var(--border-color);
     padding-top: 12px;
-    color: #c4d2df;
-    font-size: 13px;
+    font-size: 12px;
+    color: #C8D4E3;
+    line-height: 1.4;
 }
 
 .disclaimer {
     font-size: 10px;
-    color: var(--muted);
+    line-height: 1.5;
+    color: #617286;
+    margin-top: 12px;
     text-align: center;
-    margin: 14px 4px 0;
 }
 
-.error {
-    color: var(--red);
+.error-box {
+    color: var(--accent-red);
     font-size: 12px;
-    margin-top: 8px;
+    margin: 0 0 12px;
     white-space: pre-wrap;
 }
 
-.foot {
-    color: var(--muted);
-    font-size: 10px;
-    text-align: center;
-    margin-top: 10px;
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="header">
 
-<header class="top">
-    <div class="brand">SPARTAN <span>SIGNAL</span></div>
+    <div class="logo-wrap">
 
-    <div class="topright">
-        <button class="lang active" id="ruBtn">RU</button>
-        <button class="lang" id="enBtn">EN</button>
-        <button class="gear" id="gearBtn" aria-label="Настройки">⚙</button>
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none">
+            <path d="M3 17H9L13 7L19 25L23 15H29"
+                  stroke="url(#logo_grad)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+
+            <defs>
+                <linearGradient id="logo_grad"
+                    x1="3" y1="16"
+                    x2="29" y2="16"
+                    gradientUnits="userSpaceOnUse">
+
+                    <stop stop-color="#00E5FF"/>
+                    <stop offset="1" stop-color="#00E676"/>
+
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <span class="logo-text">Spartan Signal</span>
+
     </div>
-</header>
+
+    <div class="header-right">
+
+        <button id="gearBtn" class="gear-btn">
+
+            <svg width="18" height="18"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2">
+
+                <circle cx="12" cy="12" r="3"/>
+
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+
+            </svg>
+
+        </button>
+
+        <div class="lang-switch">
+
+            <div class="lang-btn active" data-lang="ru">RU</div>
+            <div class="lang-btn" data-lang="en">EN</div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <!-- SETTINGS -->
 
-<section class="panel settings" id="settingsPanel">
+<div id="settingsPanel" class="settings-panel">
 
-    <div class="field">
-        <label>AI PROVIDER</label>
+    <div class="input-group">
 
-        <select id="provider">
-            <option value="openai">OpenAI</option>
+        <label class="input-label">МОДЕЛЬ НЕЙРОСЕТИ</label>
+
+        <select id="aiProviderInput" class="api-select">
+
+            <option value="openai">OpenAI (GPT-4o-mini)</option>
             <option value="deepseek">DeepSeek</option>
             <option value="gemini">Google Gemini</option>
+
         </select>
+
     </div>
 
-    <div class="field">
-        <label>AI API KEY</label>
+    <div class="input-group">
+
+        <label class="input-label">API НЕЙРОСЕТЬ</label>
 
         <input
-            id="aiKey"
+            id="aiKeyInput"
             type="password"
-            placeholder="Вставьте API-ключ"
-            autocomplete="off"
+            class="api-input"
+            placeholder="Вставьте API-ключ нейросети"
         >
+
     </div>
 
-    <div class="field">
-        <label>DERIV TOKEN ИЛИ APP ID</label>
+    <div class="input-group">
+
+        <label class="input-label">API DERIV</label>
 
         <input
-            id="derivKey"
+            id="derivKeyInput"
             type="password"
-            placeholder="Token (необязательно) или числовой App ID"
-            autocomplete="off"
+            class="api-input"
+            placeholder="App ID Deriv (необязательно)"
         >
+
     </div>
 
-    <button class="btn" id="saveBtn">
-        Сохранить и подключиться
+    <button id="saveSettingsBtn" class="save-settings-btn">
+        Сохранить и обновить
     </button>
 
-    <div class="foot">
-        Ключи сохраняются в localStorage этого браузера.
+</div>
+
+<!-- MODE -->
+
+<div class="card">
+
+    <div class="mode-bar">
+
+        <div class="mode-left">
+            <span>◉</span>
+            <span data-i18n="mode">РЕЖИМ</span>
+        </div>
+
+        <div class="mode-badge">Rise / Fall</div>
+
     </div>
 
-</section>
+</div>
 
-<!-- CONNECTION STATUS -->
+<!-- ASSET -->
 
-<div class="statusrow">
-    <span class="dot off" id="statusDot"></span>
-    <span id="statusText">Подключение к Deriv…</span>
+<div class="card">
+
+    <div class="asset-card">
+
+        <div class="asset-icon">📈</div>
+
+        <div>
+
+            <div class="asset-title">
+                Volatility 100 (1s) Index
+            </div>
+
+            <div class="asset-sub">
+                Synthetic Index · Deriv
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <!-- CHART -->
 
-<section class="panel">
+<div class="chart-container">
 
-    <div class="assetrow">
-        <span class="asset">Volatility 100 (1s) Index</span>
-        <span class="live">● LIVE</span>
-    </div>
+    <div class="status-dot">
 
-    <div class="chartwrap">
-        <canvas id="chart"></canvas>
-    </div>
+        <span id="wsDot" class="dot offline"></span>
 
-    <div class="tfs" id="timeframes">
-
-        <button class="tf active" data-tf="1m">1m</button>
-        <button class="tf" data-tf="5m">5m</button>
-        <button class="tf" data-tf="15m">15m</button>
-        <button class="tf" data-tf="30m">30m</button>
-        <button class="tf" data-tf="1h">1h</button>
+        <span id="wsStatus">Подключение...</span>
 
     </div>
 
-    <div class="mode">
-        <span id="modeLabel">РЕЖИМ</span>
-        <span class="modeval">Rise / Fall</span>
-    </div>
-
-</section>
-
-<!-- ANALYZE BUTTON -->
-
-<button class="btn" id="analyzeBtn">
-    АНАЛИЗ ИИ
-</button>
-
-<div class="error" id="errorBox"></div>
-
-<!-- SIGNAL -->
-
-<section class="signal" id="signalBox">
-
-    <div class="sighead">
-        <span id="signalTitle">СИГНАЛ</span>
-        <span class="engine" id="engineLabel">AI ENGINE</span>
-    </div>
-
-    <div class="direction" id="direction">
-        <span class="arrow" id="arrow">↗</span>
-        <span id="directionText">Rise</span>
-    </div>
-
-    <div class="prob" id="probability">
-        Оценка модели: <strong>—</strong>
-    </div>
-
-    <div class="meta">
-
-        <div class="pill" id="candlePill">
-            📊 Свечей
-            <b>—</b>
-        </div>
-
-        <div class="pill" id="timePill">
-            🕒 Таймфрейм
-            <b>—</b>
-        </div>
-
-    </div>
-
-    <div class="reason" id="reason"></div>
-
-</section>
-
-<p class="disclaimer" id="disclaimer">
-    AI-оценка не является гарантией направления цены или финансовым советом.
-</p>
+    <canvas id="priceChart"></canvas>
 
 </div>
 
-<script>
+<!-- TIMEFRAMES -->
 
+<div class="timeframes">
+
+    <button class="tf-btn active" data-tf="1m">1m</button>
+    <button class="tf-btn" data-tf="5m">5m</button>
+    <button class="tf-btn" data-tf="15m">15m</button>
+    <button class="tf-btn" data-tf="30m">30m</button>
+    <button class="tf-btn" data-tf="1h">1h</button>
+
+</div>
+
+<!-- SIGNAL BUTTON -->
+
+<button id="signalBtn" class="action-btn">
+    СИГНАЛ
+</button>
+
+<div class="error-box" id="errorBox"></div>
+
+<!-- SIGNAL BOX -->
+
+<div id="signalBox" class="signal-box">
+
+    <div class="signal-header">
+
+        <span data-i18n="signalTitle">СИГНАЛ</span>
+
+        <span id="engineBadge" class="ai-badge">
+            AI ENGINE
+        </span>
+
+    </div>
+
+    <div id="loaderState" class="loader-wrap">
+
+        <div class="spinner"></div>
+
+        <span data-i18n="analyzingText">
+            ИИ анализирует график...
+        </span>
+
+    </div>
+
+    <div id="resultState" class="result-grid" style="display:none">
+
+        <div class="result-left">
+
+            <div id="dirIcon" class="direction-icon">
+                ↗
+            </div>
+
+            <div>
+
+                <div id="dirText" class="direction-title">
+                    Rise
+                </div>
+
+                <div class="prob-text">
+
+                    <span data-i18n="probLabel">Вероятность:</span>
+
+                    <span id="probVal" class="prob-val">--</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="result-right">
+
+            <div class="meta-row">
+                📊 <span id="candlesText">--</span>
+            </div>
+
+            <div class="meta-row">
+                🕒 <span id="timeWindow">--</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="reasonText" class="reason" style="display:none"></div>
+
+</div>
+
+<p class="disclaimer" data-i18n="disclaimer">
+    Анализ является технической оценкой рынка и не гарантирует результат.
+</p>
+
+<script>
 (() => {
 
 'use strict';
@@ -524,16 +746,188 @@ if (tg) {
     tg.expand();
 
     try {
-        tg.setHeaderColor('#08111b');
-        tg.setBackgroundColor('#08111b');
-    } catch (_) {}
+        tg.setHeaderColor('#080E14');
+        tg.setBackgroundColor('#080E14');
+    } catch (e) {}
 }
 
-const $ = id => document.getElementById(id);
+/* ELEMENTS */
 
-const SYMBOL = '1HZ100V';
+const settingsPanel = document.getElementById('settingsPanel');
+const gearBtn = document.getElementById('gearBtn');
 
-const tfMap = {
+const aiProviderInput =
+    document.getElementById('aiProviderInput');
+
+const aiKeyInput =
+    document.getElementById('aiKeyInput');
+
+const derivKeyInput =
+    document.getElementById('derivKeyInput');
+
+const signalBtn =
+    document.getElementById('signalBtn');
+
+const signalBox =
+    document.getElementById('signalBox');
+
+const loaderState =
+    document.getElementById('loaderState');
+
+const resultState =
+    document.getElementById('resultState');
+
+const errorBox =
+    document.getElementById('errorBox');
+
+/* SETTINGS */
+
+aiProviderInput.value =
+    localStorage.getItem('spartan_ai_provider') || 'openai';
+
+aiKeyInput.value =
+    localStorage.getItem('spartan_ai_key') || '';
+
+derivKeyInput.value =
+    localStorage.getItem('spartan_deriv_key') || '';
+
+gearBtn.addEventListener('click', () => {
+
+    if (tg?.HapticFeedback) {
+        tg.HapticFeedback.selectionChanged();
+    }
+
+    settingsPanel.classList.toggle('open');
+
+    gearBtn.classList.toggle('active');
+
+});
+
+document.getElementById('saveSettingsBtn')
+    .addEventListener('click', () => {
+
+        if (tg?.HapticFeedback) {
+            tg.HapticFeedback.notificationOccurred('success');
+        }
+
+        localStorage.setItem(
+            'spartan_ai_provider',
+            aiProviderInput.value
+        );
+
+        localStorage.setItem(
+            'spartan_ai_key',
+            aiKeyInput.value.trim()
+        );
+
+        localStorage.setItem(
+            'spartan_deriv_key',
+            derivKeyInput.value.trim()
+        );
+
+        settingsPanel.classList.remove('open');
+
+        gearBtn.classList.remove('active');
+
+        connectDeriv();
+
+    });
+
+/* LANGUAGE */
+
+const i18n = {
+
+    ru: {
+        mode: 'РЕЖИМ',
+        btnSignal: 'СИГНАЛ',
+        btnAnalyzing: 'АНАЛИЗ ИИ',
+        signalTitle: 'СИГНАЛ',
+        analyzingText: 'ИИ анализирует график...',
+        probLabel: 'Вероятность:',
+        connected: 'Deriv Live',
+        connecting: 'Подключение Deriv...',
+        candles: 'свечей',
+        disclaimer:
+            'Анализ является технической оценкой рынка и не гарантирует результат.',
+        rise: 'Rise',
+        fall: 'Fall',
+        neutral: 'Нет сигнала'
+    },
+
+    en: {
+        mode: 'MODE',
+        btnSignal: 'SIGNAL',
+        btnAnalyzing: 'AI ANALYZING',
+        signalTitle: 'SIGNAL',
+        analyzingText: 'AI analyzing market...',
+        probLabel: 'Probability:',
+        connected: 'Deriv Live',
+        connecting: 'Connecting Deriv...',
+        candles: 'candles',
+        disclaimer:
+            'Technical market analysis. No outcome is guaranteed.',
+        rise: 'Rise',
+        fall: 'Fall',
+        neutral: 'No signal'
+    }
+
+};
+
+let currentLang = 'ru';
+
+function setLanguage(lang) {
+
+    currentLang = lang;
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+
+        btn.classList.toggle(
+            'active',
+            btn.dataset.lang === lang
+        );
+
+    });
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+
+        const key = el.dataset.i18n;
+
+        if (i18n[lang][key]) {
+            el.textContent = i18n[lang][key];
+        }
+
+    });
+
+    if (!isAnalyzing) {
+        signalBtn.textContent = i18n[lang].btnSignal;
+    }
+
+    if (ws && ws.readyState === 1) {
+        document.getElementById('wsStatus').textContent =
+            i18n[lang].connected;
+    }
+
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        if (tg?.HapticFeedback) {
+            tg.HapticFeedback.selectionChanged();
+        }
+
+        setLanguage(btn.dataset.lang);
+
+    });
+
+});
+
+/* TIMEFRAMES */
+
+let currentTf = '1m';
+
+const timeframeSettings = {
     '1m': 60,
     '5m': 300,
     '15m': 900,
@@ -541,194 +935,76 @@ const tfMap = {
     '1h': 3600
 };
 
-let tf = '1m';
-let ws = null;
-let reconnectTimer = null;
-let candles = [];
-let liveQuote = null;
-let busy = false;
-let lang = 'ru';
-let socketGeneration = 0;
+document.querySelectorAll('.tf-btn').forEach(btn => {
 
-const translations = {
+    btn.addEventListener('click', () => {
 
-    ru: {
-        connecting: 'Подключение к Deriv…',
-        online: 'Deriv подключен',
-        offline: 'Нет соединения',
-        mode: 'РЕЖИМ',
-        analyze: 'АНАЛИЗ ИИ',
-        working: 'ИИ анализирует…',
-        signal: 'СИГНАЛ',
-        prob: 'Оценка модели:',
-        candles: 'свечей',
-        time: 'Таймфрейм',
-        disclaimer: 'AI-оценка не является гарантией направления цены или финансовым советом.',
-        rise: 'Rise',
-        fall: 'Fall',
-        neutral: 'Нет сигнала',
-        save: 'Сохранить и подключиться'
-    },
+        if (tg?.HapticFeedback) {
+            tg.HapticFeedback.selectionChanged();
+        }
 
-    en: {
-        connecting: 'Connecting to Deriv…',
-        online: 'Deriv connected',
-        offline: 'Connection lost',
-        mode: 'MODE',
-        analyze: 'AI ANALYSIS',
-        working: 'AI analyzing…',
-        signal: 'SIGNAL',
-        prob: 'Model estimate:',
-        candles: 'candles',
-        time: 'Timeframe',
-        disclaimer: 'AI estimate is not a guarantee of price direction or financial advice.',
-        rise: 'Rise',
-        fall: 'Fall',
-        neutral: 'No signal',
-        save: 'Save & connect'
-    }
+        document.querySelectorAll('.tf-btn').forEach(b => {
+            b.classList.remove('active');
+        });
 
-};
+        btn.classList.add('active');
 
-function tr(key) {
-    return translations[lang][key] || key;
-}
+        currentTf = btn.dataset.tf;
 
-function setStatus(ok, text) {
-    $('statusDot').classList.toggle('off', !ok);
-    $('statusText').textContent = text;
-}
+        signalBox.classList.remove('visible');
 
-function getSaved(id) {
-    try {
-        return localStorage.getItem(id) || '';
-    } catch (_) {
-        return '';
-    }
-}
-
-function save(id, val) {
-    try {
-        localStorage.setItem(id, val);
-    } catch (_) {}
-}
-
-/* LOAD SETTINGS */
-
-$('provider').value =
-    getSaved('spartan_ai_provider') || 'deepseek';
-
-$('aiKey').value =
-    getSaved('spartan_ai_key');
-
-$('derivKey').value =
-    getSaved('spartan_deriv_key');
-
-/* SETTINGS PANEL */
-
-$('gearBtn').onclick = () => {
-
-    $('settingsPanel').classList.toggle('open');
-
-    $('gearBtn').classList.toggle('active');
-
-};
-
-$('saveBtn').onclick = () => {
-
-    save('spartan_ai_provider', $('provider').value);
-
-    save('spartan_ai_key', $('aiKey').value.trim());
-
-    save('spartan_deriv_key', $('derivKey').value.trim());
-
-    $('settingsPanel').classList.remove('open');
-
-    $('gearBtn').classList.remove('active');
-
-    connectDeriv();
-
-};
-
-/* LANGUAGE */
-
-$('ruBtn').onclick = () => setLang('ru');
-
-$('enBtn').onclick = () => setLang('en');
-
-function setLang(l) {
-
-    lang = l;
-
-    $('ruBtn').classList.toggle('active', l === 'ru');
-
-    $('enBtn').classList.toggle('active', l === 'en');
-
-    $('modeLabel').textContent = tr('mode');
-
-    $('analyzeBtn').textContent = tr('analyze');
-
-    $('signalTitle').textContent = tr('signal');
-
-    $('disclaimer').textContent = tr('disclaimer');
-
-    $('statusText').textContent =
-        ws?.readyState === 1 ? tr('online') : tr('connecting');
-
-}
-
-/* TIMEFRAME BUTTONS */
-
-document.querySelectorAll('.tf').forEach(button => {
-
-    button.onclick = () => {
-
-        document.querySelectorAll('.tf')
-            .forEach(b => b.classList.remove('active'));
-
-        button.classList.add('active');
-
-        tf = button.dataset.tf;
-
-        loadCandles();
-
-    };
+    });
 
 });
 
-/* DERIV CONNECTION */
+/* DERIV LIVE WEBSOCKET */
+
+const SYMBOL = '1HZ100V';
+
+let ws = null;
+
+let prices = [];
+
+let reconnectTimer = null;
+
+let reconnectAttempts = 0;
+
+let isAnalyzing = false;
+
+function setConnection(ok, text) {
+
+    document.getElementById('wsDot')
+        .classList.toggle('offline', !ok);
+
+    document.getElementById('wsStatus')
+        .textContent = text;
+
+}
 
 function connectDeriv() {
 
     clearTimeout(reconnectTimer);
 
-    socketGeneration++;
-
-    const generation = socketGeneration;
-
     if (ws) {
-
         try {
             ws.onclose = null;
             ws.close();
         } catch (_) {}
-
     }
 
-    candles = [];
-    liveQuote = null;
+    prices = [];
 
     drawChart();
 
-    const key = getSaved('spartan_deriv_key').trim();
-
-    const isToken =
-        key.length > 0 && !(/^\d+$/.test(key));
+    const savedAppId =
+        localStorage.getItem('spartan_deriv_key') || '';
 
     const appId =
-        key && /^\d+$/.test(key) ? key : '1089';
+        /^\d+$/.test(savedAppId)
+            ? savedAppId
+            : '1089';
 
-    setStatus(false, tr('connecting'));
+    setConnection(false, i18n[currentLang].connecting);
 
     try {
 
@@ -738,7 +1014,7 @@ function connectDeriv() {
 
     } catch (e) {
 
-        scheduleReconnect(generation);
+        reconnect();
 
         return;
 
@@ -746,120 +1022,85 @@ function connectDeriv() {
 
     ws.onopen = () => {
 
-        if (generation !== socketGeneration) return;
+        reconnectAttempts = 0;
 
-        if (isToken) {
+        /* Historical ticks */
 
-            ws.send(JSON.stringify({
-                authorize: key
-            }));
+        ws.send(JSON.stringify({
 
-        } else {
+            ticks_history: SYMBOL,
 
-            loadCandles();
+            count: 100,
 
-        }
+            end: 'latest',
+
+            style: 'ticks'
+
+        }));
 
     };
 
     ws.onmessage = event => {
 
-        if (generation !== socketGeneration) return;
-
-        let d;
+        let data;
 
         try {
-            d = JSON.parse(event.data);
+            data = JSON.parse(event.data);
         } catch (_) {
             return;
         }
 
-        if (d.error) {
+        if (data.error) {
 
-            setStatus(false, `Deriv: ${d.error.message || d.error.code}`);
-
-            $('errorBox').textContent =
-                d.error.message || d.error.code;
+            setConnection(false, data.error.message);
 
             return;
 
         }
 
-        if (d.msg_type === 'authorize') {
+        /* HISTORY */
 
-            loadCandles();
+        if (data.msg_type === 'history' && data.history) {
 
-            return;
-
-        }
-
-        /* HISTORICAL CANDLES */
-
-        if (d.msg_type === 'candles' && d.candles) {
-
-            candles = d.candles.map(c => ({
-                epoch: Number(c.epoch),
-                open: Number(c.open),
-                high: Number(c.high),
-                low: Number(c.low),
-                close: Number(c.close)
-            }));
-
-            setStatus(true, tr('online'));
+            prices = data.history.prices.map(Number);
 
             drawChart();
+
+            /* Subscribe to live ticks */
 
             ws.send(JSON.stringify({
+
                 ticks: SYMBOL,
+
                 subscribe: 1
+
             }));
+
+            setConnection(
+                true,
+                i18n[currentLang].connected
+            );
 
         }
 
-        /* LIVE TICKS */
+        /* LIVE TICK */
 
-        if (d.msg_type === 'tick' && d.tick) {
+        if (data.msg_type === 'tick' && data.tick) {
 
-            liveQuote = Number(d.tick.quote);
+            const quote = Number(data.tick.quote);
 
-            const epoch = Number(d.tick.epoch);
+            prices.push(quote);
 
-            if (candles.length) {
-
-                const bucket =
-                    Math.floor(epoch / tfMap[tf]) * tfMap[tf];
-
-                const last = candles[candles.length - 1];
-
-                if (last.epoch === bucket) {
-
-                    last.close = liveQuote;
-
-                    last.high = Math.max(last.high, liveQuote);
-
-                    last.low = Math.min(last.low, liveQuote);
-
-                } else if (bucket > last.epoch) {
-
-                    candles.push({
-                        epoch: bucket,
-                        open: last.close,
-                        high: liveQuote,
-                        low: liveQuote,
-                        close: liveQuote
-                    });
-
-                    if (candles.length > 80) {
-                        candles.shift();
-                    }
-
-                }
-
+            if (prices.length > 120) {
+                prices.shift();
             }
 
-            setStatus(true, tr('online'));
-
             drawChart();
+
+            setConnection(
+                true,
+                i18n[currentLang].connected
+            );
 
         }
 
@@ -867,63 +1108,40 @@ function connectDeriv() {
 
     ws.onerror = () => {
 
-        setStatus(false, tr('offline'));
+        setConnection(false, 'Ошибка WebSocket');
 
     };
 
     ws.onclose = () => {
 
-        if (generation !== socketGeneration) return;
+        setConnection(false, 'Переподключение...');
 
-        setStatus(false, tr('connecting'));
-
-        scheduleReconnect(generation);
+        reconnect();
 
     };
 
 }
 
-function scheduleReconnect(generation) {
+function reconnect() {
 
-    if (generation !== socketGeneration) return;
+    reconnectAttempts++;
 
-    reconnectTimer = setTimeout(() => {
+    const delay = Math.min(
+        1000 * reconnectAttempts,
+        10000
+    );
 
-        if (generation === socketGeneration) {
-            connectDeriv();
-        }
-
-    }, 2500);
-
-}
-
-function loadCandles() {
-
-    if (!ws || ws.readyState !== 1) return;
-
-    ws.send(JSON.stringify({
-
-        ticks_history: SYMBOL,
-
-        adjust_start_time: 1,
-
-        count: 80,
-
-        end: 'latest',
-
-        style: 'candles',
-
-        granularity: tfMap[tf]
-
-    }));
+    reconnectTimer = setTimeout(connectDeriv, delay);
 
 }
 
 /* CHART */
 
-const canvas = $('chart');
+const canvas =
+    document.getElementById('priceChart');
 
-const ctx = canvas.getContext('2d');
+const ctx =
+    canvas.getContext('2d');
 
 function drawChart() {
 
@@ -943,371 +1161,350 @@ function drawChart() {
 
     const h = rect.height;
 
+    const rightPad = 72;
+
+    const plotW = w - rightPad;
+
     ctx.clearRect(0, 0, w, h);
 
-    if (candles.length < 2) {
+    if (prices.length < 2) {
 
-        ctx.fillStyle = '#8295a9';
+        ctx.fillStyle = '#8A9BB0';
 
         ctx.font = '12px sans-serif';
 
-        ctx.fillText('Ожидание котировок…', 12, 24);
+        ctx.fillText('Загрузка графика...', 12, 40);
 
         return;
 
     }
 
-    const visible = candles.slice(-45);
+    const min = Math.min(...prices);
 
-    const min = Math.min(...visible.map(c => c.low));
+    const max = Math.max(...prices);
 
-    const max = Math.max(...visible.map(c => c.high));
+    const range = max - min || 0.0001;
 
-    const range = max - min || 1;
+    const padY = h * 0.14;
 
-    const pad = {
-        top: 12,
-        bottom: 12,
-        left: 8,
-        right: 62
-    };
+    const getY = val =>
+        h - padY - ((val - min) / range) * (h - padY * 2);
 
-    const plotW = w - pad.left - pad.right;
-
-    const plotH = h - pad.top - pad.bottom;
-
-    const y = v =>
-        pad.top + (max - v) / range * plotH;
-
-    const step = plotW / visible.length;
-
-    const cw = Math.max(2, step * .62);
+    const getX = idx =>
+        (idx / (prices.length - 1)) * (plotW - 15);
 
     /* GRID */
 
-    ctx.strokeStyle = 'rgba(255,255,255,.055)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
 
-    ctx.fillStyle = '#8092a5';
+    ctx.fillStyle = '#8A9BB0';
 
-    ctx.font = '10px sans-serif';
+    ctx.font = '11px sans-serif';
 
-    for (let i = 0; i < 5; i++) {
+    ctx.lineWidth = 1;
 
-        let yy = pad.top + i * plotH / 4;
+    for (let i = 0; i <= 4; i++) {
+
+        const val = min + (range / 4) * i;
+
+        const y = getY(val);
 
         ctx.beginPath();
 
-        ctx.moveTo(pad.left, yy);
+        ctx.moveTo(0, y);
 
-        ctx.lineTo(pad.left + plotW, yy);
+        ctx.lineTo(plotW, y);
 
         ctx.stroke();
 
         ctx.fillText(
-            (max - i * range / 4).toFixed(2),
-            pad.left + plotW + 6,
-            yy + 3
+            val.toFixed(2),
+            plotW + 10,
+            y + 4
         );
 
     }
 
-    /* CANDLES */
+    /* GRADIENT */
 
-    visible.forEach((c, i) => {
+    const gradient = ctx.createLinearGradient(
+        0, padY, 0, h
+    );
 
-        let x = pad.left + i * step + step / 2;
+    gradient.addColorStop(
+        0,
+        'rgba(255,255,255,0.16)'
+    );
 
-        let up = c.close >= c.open;
+    gradient.addColorStop(
+        1,
+        'rgba(8,14,20,0)'
+    );
 
-        let color = up ? '#31d69a' : '#ff6577';
+    /* AREA */
 
-        ctx.strokeStyle = color;
+    ctx.beginPath();
 
-        ctx.fillStyle = color;
+    ctx.moveTo(getX(0), h);
 
-        ctx.beginPath();
+    prices.forEach((p, i) => {
+        ctx.lineTo(getX(i), getY(p));
+    });
 
-        ctx.moveTo(x, y(c.high));
+    ctx.lineTo(
+        getX(prices.length - 1),
+        h
+    );
 
-        ctx.lineTo(x, y(c.low));
+    ctx.closePath();
 
-        ctx.stroke();
+    ctx.fillStyle = gradient;
 
-        let top = Math.min(y(c.open), y(c.close));
+    ctx.fill();
 
-        let body = Math.max(
-            1,
-            Math.abs(y(c.open) - y(c.close))
-        );
+    /* PRICE LINE */
 
-        ctx.fillRect(x - cw / 2, top, cw, body);
+    ctx.beginPath();
+
+    prices.forEach((p, i) => {
+
+        if (i === 0) {
+            ctx.moveTo(getX(i), getY(p));
+        } else {
+            ctx.lineTo(getX(i), getY(p));
+        }
 
     });
 
-    /* CURRENT PRICE */
+    ctx.strokeStyle = '#FFFFFF';
 
-    if (liveQuote !== null) {
+    ctx.lineWidth = 2;
 
-        ctx.fillStyle = '#47d7f4';
+    ctx.stroke();
 
-        ctx.font = 'bold 11px sans-serif';
+    /* LAST PRICE */
 
-        ctx.fillText(
-            liveQuote.toFixed(2),
-            pad.left + plotW + 6,
-            y(liveQuote)
-        );
+    const lastPrice = prices[prices.length - 1];
 
-    }
+    const lastX = getX(prices.length - 1);
+
+    const lastY = getY(lastPrice);
+
+    ctx.beginPath();
+
+    ctx.moveTo(lastX, lastY);
+
+    ctx.lineTo(plotW + 4, lastY);
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+
+    ctx.lineWidth = 1.5;
+
+    ctx.stroke();
+
+    ctx.beginPath();
+
+    ctx.arc(lastX, lastY, 4.5, 0, Math.PI * 2);
+
+    ctx.fillStyle = '#FFFFFF';
+
+    ctx.fill();
+
+    /* PRICE LABEL */
+
+    ctx.fillStyle = '#FFFFFF';
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        plotW + 4,
+        lastY - 11,
+        64,
+        22,
+        6
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle = '#080E14';
+
+    ctx.font = 'bold 11px sans-serif';
+
+    ctx.fillText(
+        lastPrice.toFixed(2),
+        plotW + 10,
+        lastY + 4
+    );
 
 }
 
 window.addEventListener('resize', drawChart);
 
-/* RSI */
+/* MOSCOW TIME */
 
-function rsi(values, period = 14) {
+function getMskTimeWindow(candlesCount) {
 
-    if (values.length <= period) return null;
+    const now = new Date();
 
-    let gains = 0;
+    const seconds =
+        timeframeSettings[currentTf] || 60;
 
-    let losses = 0;
+    const end = new Date(
+        now.getTime() +
+        seconds * candlesCount * 1000
+    );
 
-    for (let i = values.length - period; i < values.length; i++) {
+    const format = date =>
+        date.toLocaleTimeString('ru-RU', {
+            timeZone: 'Europe/Moscow',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
 
-        let d = values[i] - values[i - 1];
-
-        if (d > 0) {
-            gains += d;
-        } else {
-            losses -= d;
-        }
-
-    }
-
-    if (losses === 0) return 100;
-
-    return 100 - (100 / (1 + gains / losses));
+    return `${format(now)} – ${format(end)} (МСК)`;
 
 }
 
-/* STATISTICS */
+/* DISPLAY SIGNAL */
 
-function candleStats(cs) {
+function renderSignal(signal) {
 
-    const closes = cs.map(c => c.close);
+    const dirIcon =
+        document.getElementById('dirIcon');
 
-    const last = cs.at(-1);
+    const dirText =
+        document.getElementById('dirText');
 
-    const prev = cs.at(-2);
+    const probVal =
+        document.getElementById('probVal');
 
-    const r = rsi(closes);
+    document.getElementById('engineBadge')
+        .textContent = signal.source || 'AI ENGINE';
 
-    return {
+    if (signal.direction === 'Rise') {
 
-        closes,
+        dirIcon.className =
+            'direction-icon rise';
 
-        last,
+        dirIcon.textContent = '↗';
 
-        prev,
+        dirText.textContent =
+            i18n[currentLang].rise;
 
-        rsi: r,
+        probVal.style.color =
+            '#00E676';
 
-        trend:
-            closes.at(-1) > closes.at(-5)
-                ? 'up'
-                : closes.at(-1) < closes.at(-5)
-                    ? 'down'
-                    : 'sideways'
+    } else if (signal.direction === 'Fall') {
 
-    };
+        dirIcon.className =
+            'direction-icon fall';
+
+        dirIcon.textContent = '↘';
+
+        dirText.textContent =
+            i18n[currentLang].fall;
+
+        probVal.style.color =
+            '#FF3D57';
+
+    } else {
+
+        dirIcon.className =
+            'direction-icon neutral';
+
+        dirIcon.textContent = '—';
+
+        dirText.textContent =
+            i18n[currentLang].neutral;
+
+        probVal.style.color =
+            '#8A9BB0';
+
+    }
+
+    probVal.textContent =
+        `${signal.probability}%`;
+
+    document.getElementById('candlesText')
+        .textContent =
+            `${signal.candles} ${i18n[currentLang].candles}`;
+
+    document.getElementById('timeWindow')
+        .textContent =
+            getMskTimeWindow(signal.candles);
+
+    document.getElementById('reasonText')
+        .textContent = signal.reason;
+
+    document.getElementById('reasonText')
+        .style.display = 'block';
+
+    loaderState.style.display = 'none';
+
+    resultState.style.display = 'flex';
 
 }
 
-/* AI PROMPT */
+/* ANALYSIS */
 
-function makePrompt() {
+signalBtn.addEventListener('click', async () => {
 
-    const data = candles.slice(-20);
+    if (isAnalyzing) return;
 
-    if (data.length < 8) {
+    if (prices.length < 10) {
 
-        throw new Error(
-            'Недостаточно свечей. Дождитесь загрузки графика.'
-        );
+        errorBox.textContent =
+            'Недостаточно данных графика. Дождитесь подключения.';
 
-    }
-
-    const s = candleStats(data);
-
-    return `Ты анализируешь краткосрочный график синтетического индекса Deriv Volatility 100 (1s).
-
-Таймфрейм: ${tf}.
-
-Данные OHLC последних ${data.length} свечей:
-${JSON.stringify(data)}
-
-RSI(14):
-${s.rsi === null ? 'недостаточно данных' : s.rsi.toFixed(2)}
-
-Общая динамика:
-${s.trend}
-
-Текущая цена:
-${liveQuote ?? s.last.close}
-
-Сделай осторожную техническую оценку следующего движения.
-
-Не выдумывай данные.
-Если сигналы слабые или противоречивые, выбери NEUTRAL.
-Вероятность — субъективная оценка модели, не статистически подтвержденная.
-
-Верни ТОЛЬКО JSON:
-
-{
-  "direction": "RISE|FALL|NEUTRAL",
-  "confidence": 0-100,
-  "candles": ${Math.min(20, data.length)},
-  "reason": "короткое объяснение на русском"
-}`;
-
-}
-
-/* AI REQUEST */
-
-async function callAI(prompt) {
-
-    const provider =
-        getSaved('spartan_ai_provider') || $('provider').value;
-
-    const key =
-        getSaved('spartan_ai_key') || $('aiKey').value.trim();
-
-    if (!key) {
-
-        throw new Error(
-            'Сначала добавьте API-ключ AI в настройках (⚙).'
-        );
+        return;
 
     }
 
-    let response;
+    const aiKey =
+        localStorage.getItem('spartan_ai_key') || '';
 
-    let text;
+    if (!aiKey) {
 
-    /* DEEPSEEK */
+        errorBox.textContent =
+            'Добавьте API-ключ нейросети в настройки ⚙';
 
-    if (provider === 'deepseek') {
+        settingsPanel.classList.add('open');
 
-        response = await fetch(
-            'https://api.deepseek.com/chat/completions',
-            {
-                method: 'POST',
+        gearBtn.classList.add('active');
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${key}`
-                },
-
-                body: JSON.stringify({
-
-                    model: 'deepseek-chat',
-
-                    messages: [
-
-                        {
-                            role: 'system',
-                            content: 'Ты технический аналитик. Отвечай только валидным JSON.'
-                        },
-
-                        {
-                            role: 'user',
-                            content: prompt
-                        }
-
-                    ],
-
-                    temperature: 0.2
-
-                })
-
-            }
-        );
-
-        const j = await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                j.error?.message || 'DeepSeek API error'
-            );
-
-        }
-
-        text = j.choices?.[0]?.message?.content;
+        return;
 
     }
 
-    /* OPENAI */
-
-    else if (provider === 'openai') {
-
-        response = await fetch(
-            'https://api.openai.com/v1/chat/completions',
-            {
-                method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${key}`
-                },
-
-                body: JSON.stringify({
-
-                    model: 'gpt-4o-mini',
-
-                    messages: [
-
-                        {
-                            role: 'system',
-                            content: 'You are a cautious technical analyst. Return only valid JSON.'
-                        },
-
-                        {
-                            role: 'user',
-                            content: prompt
-                        }
-
-                    ],
-
-                    temperature: 0.2
-
-                })
-
-            }
-        );
-
-        const j = await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                j.error?.message || 'OpenAI API error'
-            );
-
-        }
-
-        text = j.choices?.[0]?.message?.content;
-
+    if (tg?.HapticFeedback) {
+        tg.HapticFeedback.impactOccurred('medium');
     }
 
-    /* GEMINI */
+    errorBox.textContent = '';
 
-    else {
+    isAnalyzing = true;
 
-        response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(key)}`,
+    signalBtn.disabled = true;
+
+    signalBtn.classList.add('analyzing');
+
+    signalBtn.textContent =
+        i18n[currentLang].btnAnalyzing;
+
+    signalBox.classList.add('visible');
+
+    loaderState.style.display = 'flex';
+
+    resultState.style.display = 'none';
+
+    document.getElementById('reasonText')
+        .style.display = 'none';
+
+    try {
+
+        const res = await fetch(
+            '/.netlify/functions/market',
             {
                 method: 'POST',
 
@@ -1317,183 +1514,75 @@ async function callAI(prompt) {
 
                 body: JSON.stringify({
 
-                    contents: [
-                        {
-                            parts: [
-                                {
-                                    text: prompt
-                                }
-                            ]
-                        }
-                    ],
+                    action: 'analyze',
 
-                    generationConfig: {
-                        temperature: 0.2,
-                        responseMimeType: 'application/json'
-                    }
+                    timeframe: currentTf,
+
+                    lang: currentLang,
+
+                    prices: prices.slice(-100),
+
+                    aiKey: aiKey,
+
+                    aiProvider:
+                        localStorage.getItem(
+                            'spartan_ai_provider'
+                        ) || 'openai'
 
                 })
 
             }
         );
 
-        const j = await response.json();
+        const signal = await res.json();
 
-        if (!response.ok) {
+        if (!res.ok || !signal.ok) {
 
             throw new Error(
-                j.error?.message || 'Gemini API error'
+                signal.error || 'Ошибка анализа'
             );
 
         }
 
-        text = j.candidates?.[0]?.content?.parts
-            ?.map(p => p.text || '')
-            .join('');
+        renderSignal(signal);
 
-    }
-
-    if (!text) {
-
-        throw new Error('AI вернул пустой ответ');
-
-    }
-
-    /* PARSE AI JSON */
-
-    const cleaned = text
-        .replace(/```(?:json)?/gi, '')
-        .replace(/```/g, '')
-        .trim();
-
-    const parsed = JSON.parse(cleaned);
-
-    if (
-        !['RISE', 'FALL', 'NEUTRAL']
-        .includes(parsed.direction)
-    ) {
-
-        throw new Error(
-            'Неизвестное направление в ответе AI'
-        );
-
-    }
-
-    parsed.confidence = Math.max(
-        0,
-        Math.min(100, Number(parsed.confidence) || 0)
-    );
-
-    parsed.candles = Math.max(
-        1,
-        Math.min(20, Number(parsed.candles) || dataCount())
-    );
-
-    parsed.reason = String(
-        parsed.reason || 'Нет объяснения'
-    );
-
-    return parsed;
-
-}
-
-function dataCount() {
-
-    return Math.min(20, candles.length);
-
-}
-
-/* RENDER SIGNAL */
-
-function renderSignal(s) {
-
-    $('signalBox').classList.add('show');
-
-    const d = s.direction;
-
-    const cls =
-        d === 'RISE'
-            ? 'rise'
-            : d === 'FALL'
-                ? 'fall'
-                : 'neutral';
-
-    $('direction').className = 'direction ' + cls;
-
-    $('arrow').textContent =
-        d === 'RISE'
-            ? '↗'
-            : d === 'FALL'
-                ? '↘'
-                : '—';
-
-    $('directionText').textContent =
-        d === 'RISE'
-            ? tr('rise')
-            : d === 'FALL'
-                ? tr('fall')
-                : tr('neutral');
-
-    $('probability').innerHTML =
-        `${tr('prob')} <strong>${s.confidence}%</strong>`;
-
-    $('candlePill').innerHTML =
-        `📊 ${tr('candles')}<b>${s.candles}</b>`;
-
-    $('timePill').innerHTML =
-        `🕒 ${tr('time')}<b>${tf}</b>`;
-
-    $('reason').textContent = s.reason;
-
-    $('engineLabel').textContent =
-        ($('provider').value || 'AI').toUpperCase()
-        + ' ENGINE';
-
-}
-
-/* ANALYZE BUTTON */
-
-$('analyzeBtn').onclick = async () => {
-
-    if (busy) return;
-
-    busy = true;
-
-    $('analyzeBtn').disabled = true;
-
-    $('analyzeBtn').textContent = tr('working');
-
-    $('errorBox').textContent = '';
-
-    try {
-
-        const result = await callAI(makePrompt());
-
-        renderSignal(result);
+        if (tg?.HapticFeedback) {
+            tg.HapticFeedback.notificationOccurred('success');
+        }
 
     } catch (e) {
 
-        $('errorBox').textContent =
-            e.message || String(e);
+        loaderState.style.display = 'none';
 
-    } finally {
+        resultState.style.display = 'none';
 
-        busy = false;
+        document.getElementById('reasonText')
+            .style.display = 'block';
 
-        $('analyzeBtn').disabled = false;
+        document.getElementById('reasonText')
+            .textContent = e.message || 'Ошибка анализа';
 
-        $('analyzeBtn').textContent = tr('analyze');
+        errorBox.textContent =
+            e.message || 'Не удалось получить сигнал';
 
     }
 
-};
+    isAnalyzing = false;
+
+    signalBtn.disabled = false;
+
+    signalBtn.classList.remove('analyzing');
+
+    signalBtn.textContent =
+        i18n[currentLang].btnSignal;
+
+});
 
 /* START */
 
 connectDeriv();
 
 })();
-
 </script>
 
 </body>
